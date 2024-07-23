@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '/home/USER/DEPARTMENTCODEHERE/.env' });
+require('dotenv').config({ path: '/home/USER/DEPARTMENTCODE/.env' });
 
 if (!process.env.TOKEN) {
   console.error("TOKEN is not defined in the .env file");
@@ -51,12 +51,12 @@ const client = new Client({
 // Use term-logger globally
 client.log = Logger;
 
-readdir("./src/events", (err, files) => {
-  let eventFiles = files.filter((t) => t.split(".").pop() === "js");
-
+readdir("./events", (err, files) => {
   if (err) {
     return Logger.error(err);
   }
+
+  let eventFiles = files.filter((t) => t.split(".").pop() === "js");
 
   eventFiles.forEach((file) => {
     let eventName = file.split(".")[0];
