@@ -70,7 +70,7 @@ readdir("./events", (err, files) => {
 client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setPresence({
-    activities: [{ name: 'scflrlp.com/dhs' }],
+    activities: [{ name: 'scflrlp.com/DEPARTMENTCODE' }],
     status: 'online',
   });
 });
