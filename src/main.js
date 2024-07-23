@@ -4,7 +4,7 @@ const { Logger } = require("term-logger");
 const { readdir } = require("fs");
 require("dotenv").config();
 
-process.title = `Server Logger Bot | ${version}`;
+process.title = `SCRP Department Utilities | ${version}`;
 console.clear();
 
 const client = new Client({
