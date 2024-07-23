@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '/home/mason/dhs/.env' });
+require('dotenv').config({ path: '/home/mason/DEPARTMENTCODE/.env' });
 
 if (!process.env.TOKEN) {
   console.error("TOKEN is not defined in the .env file");
