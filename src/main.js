@@ -1,8 +1,16 @@
+require('dotenv').config({ path: '/home/mason/dhs/.env' });
+
+if (!process.env.TOKEN) {
+  console.error("TOKEN is not defined in the .env file");
+  process.exit(1);
+}
+
+console.log(`Bot token: ${process.env.TOKEN}`); // Verify token is loaded
+
 const { Client, GatewayIntentBits, Partials } = require("discord.js");
 const version = require("../package.json").version;
 const { Logger } = require("term-logger");
 const { readdir } = require("fs");
-require("dotenv").config();
 
 process.title = `SCRP Department Utilities | ${version}`;
 console.clear();
@@ -56,6 +64,14 @@ readdir("./src/events", (err, files) => {
     client.on(eventName, event.bind(null, client));
 
     Logger.event(`Successfully registered event ${eventName}.js`);
+  });
+});
+
+client.once('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+  client.user.setPresence({
+    activities: [{ name: 'scflrlp.com/dhs' }],
+    status: 'online',
   });
 });
 
