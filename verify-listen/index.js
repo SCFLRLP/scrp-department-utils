@@ -1,6 +1,12 @@
 // Import the discord.js module
 const { Client, Intents } = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS] });
+const client = new Client({
+    intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MEMBERS,
+        Intents.FLAGS.GUILD_PRESENCES
+    ]
+});
 
 // Define your constants
 const MAIN_GUILD_ID = '1212505045653000216'; // The main server ID where users will be checked
@@ -11,7 +17,7 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('guildMemberAdd', async (member) => {
+async function verifyMember(member) {
     try {
         // Fetch the main guild
         const mainGuild = await client.guilds.fetch(MAIN_GUILD_ID);
@@ -27,6 +33,19 @@ client.on('guildMemberAdd', async (member) => {
         }
     } catch (error) {
         console.error('Error fetching member or adding role:', error);
+    }
+}
+
+client.on('guildMemberAdd', async (member) => {
+    await verifyMember(member);
+});
+
+client.on('guildMemberUpdate', async (oldMember, newMember) => {
+    // Check if the update is for the main guild and if roles have changed
+    if (newMember.guild.id === MAIN_GUILD_ID && oldMember.roles.cache.has(CHECK_ROLE_ID) !== newMember.roles.cache.has(CHECK_ROLE_ID)) {
+        // Fetch the corresponding member in the current guild
+        const currentGuildMember = await client.guilds.cache.get(newMember.guild.id).members.fetch(newMember.id);
+        await verifyMember(currentGuildMember);
     }
 });
 
