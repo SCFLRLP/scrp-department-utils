@@ -6,3 +6,8 @@
 
 **REMINDER TO USE THESE COMMANDS:**
 - `npm install discord.js`
+- `npm install term-logger`
+- `npm install dotenv`
+- `npm install nodemon`
+
+**Failure to install these WILL result in the project not starting.**
