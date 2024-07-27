@@ -10,4 +10,4 @@
 - `npm install dotenv`
 - `npm install nodemon`
 
-**Failure to install these WILL result in the project not starting.**
+**Failure to install these WILL result in the project not starting. (SCRP Usage allows other people/servers to use this code)**
